@@ -1,3 +1,5 @@
+*VLAN Management*
+
 **Project Description**
 
 The objective of this project is to implement an SDN controller that exposes a northbound interface to control the network behavior from an external application. The controller has to expose a RESTful northbound interface to allow an external application to create VLANs and assign the hosts of the SDN network to VLANs. An example application has to be written in order to test the implementation through an SDN network emulated using Mininet.
@@ -17,6 +19,7 @@ At network startup, in Mininet, it is possible to perform a pingall action to ge
  - We assume that communication between different VLANs is not in the scope of our project, therefore we don’t have to deal with inter-VLAN communication issues (i.e. hosts in a given VLAN can communicate only with hosts from the same VLAN).
 
 **Northbound Interface**
+
 The focus of our project is to configure the controller in such a way that it can provide an API using the RESTful paradigm.
 The API will provide the following functionalities:
  - Add a new VLAN with a name.
