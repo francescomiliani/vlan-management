@@ -1,10 +1,10 @@
-**Requirements**
-Project Description
+**Project Description**
+
 The objective of this project is to implement an SDN controller that exposes a northbound interface to control the network behavior from an external application. The controller has to expose a RESTful northbound interface to allow an external application to create VLANs and assign the hosts of the SDN network to VLANs. An example application has to be written in order to test the implementation through an SDN network emulated using Mininet.
 Assumptions
 Before delving into the project development, the following assumptions have been made:
 • We assume a static configuration of the network topology which is composed by a single switch, connected to the controller, and a certain number of hosts. This assumption follows from the use of the Mininet command:
-sudo mn --topo single,6 --mac --switch ovsk --controller remote,ip=127.0.0.1,port=6653,protocols=OpenFlow13 --ipbase=10.0.0.0
+##sudo mn --topo single,6 --mac --switch ovsk --controller remote,ip=127.0.0.1,port=6653,protocols=OpenFlow13 --ipbase=10.0.0.0##
 ---
 
 o However, our application is able to handle any number of hosts.
@@ -16,12 +16,12 @@ o At network startup, in Mininet, it is possible to perform a pingall action to 
 Northbound Interface
 The focus of our project is to configure the controller in such a way that it can provide an API using the RESTful paradigm.
 The API will provide the following functionalities:
-• Add a new VLAN with a name.
-• Delete an existing VLAN by name.
-• Show the list of all VLANs with their belonging hosts.
-• Assign an existing host to a certain VLAN.
-• Remove an existing host from its current VLAN (reassigning it to the default VLAN).
-• Show the list of all the hosts belonging to a certain VLAN
+ - Add a new VLAN with a name.
+ - Delete an existing VLAN by name.
+ - Show the list of all VLANs with their belonging hosts.
+ - Assign an existing host to a certain VLAN.
+ - Remove an existing host from its current VLAN (reassigning it to the default VLAN).
+ - Show the list of all the hosts belonging to a certain VLAN
 
 Example Application
 In order to test our API, we want to develop an external application providing a Graphical User Interface (GUI) offering an easy way for the network administrator to configure VLANs.
@@ -59,16 +59,15 @@ o Inordertohaveacompletepictureofthecommunicationcapabilitiesinsidethenetwork,
 it is possible to use, again, a pingall command
 o In order to test the broadcast communication capabilities inside the network, first
 configure all the hosts to respond to ICMP_ECHO_REQUESTS addressed to the broadcast address (10.0.0.255 in this case) with the command
-h1 echo “0” > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts (repeated for all the host), then
-            h1 ping 10.0.0.255
-• On the GUI, using the Add Host to VLAN button, assign host “h1” to “v3” to verify that an error message is returned, since VLAN “v3” does not exist
-• On the GUI, using the Add Host to VLAN button, assign host “h7” to “v2” to verify that an error message is returned, since host “h7” does not exist
-• On the GUI, using the Add Host to VLAN button, assign host “h1” to “v2”; use the View VLANs button to verify the assignments
-• On Mininet, repeat the pinging procedure to verify that h1 cannot reach h2 anymore, but it can well reach h3 and h4, i.e. the rules have been updated successfully
-• On the GUI, press the Remove Host from VLAN button with parameter “h7” and verify that an error message is returned, since host “h7” does not exist
-• On the GUI, press the Remove Host from VLAN button with parameter “h2”, to remove h2 from “v1” and assign it to the default VLAN, then use the View VLANs button to verify the assignments
-• On the GUI, press the Remove VLAN button with parameter “v3” and verify that an error message is returned, since this VLAN does not exist
-• On the GUI, press the Remove VLAN button with parameter “Default” and verify that an error message is returned, since the default VLAN cannot be deleted
-8
-• On the GUI, press the Remove VLAN button with parameter “v1” and use the View VLANs button to verify that “v1” was correctly removed
-• On the GUI, press the Remove VLAN button with parameter “v2” and use the View VLANs button to verify that “v2” was correctly removed and all of its hosts have been moved to the default VLAN
+##h1 echo “0” > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts (repeated for all the host), then
+            h1 ping 10.0.0.255##
+ - On the GUI, using the Add Host to VLAN button, assign host “h1” to “v3” to verify that an error message is returned, since VLAN “v3” does not exist
+ - On the GUI, using the Add Host to VLAN button, assign host “h7” to “v2” to verify that an error message is returned, since host “h7” does not exist
+ - On the GUI, using the Add Host to VLAN button, assign host “h1” to “v2”; use the View VLANs button to verify the assignments
+ - On Mininet, repeat the pinging procedure to verify that h1 cannot reach h2 anymore, but it can well reach h3 and h4, i.e. the rules have been updated successfully
+ - On the GUI, press the Remove Host from VLAN button with parameter “h7” and verify that an error message is returned, since host “h7” does not exist
+ - On the GUI, press the Remove Host from VLAN button with parameter “h2”, to remove h2 from “v1” and assign it to the default VLAN, then use the View VLANs button to verify the assignments
+ - On the GUI, press the Remove VLAN button with parameter “v3” and verify that an error message is returned, since this VLAN does not exist
+ - On the GUI, press the Remove VLAN button with parameter “Default” and verify that an error message is returned, since the default VLAN cannot be deleted
+ - On the GUI, press the Remove VLAN button with parameter “v1” and use the View VLANs button to verify that “v1” was correctly removed
+ - On the GUI, press the Remove VLAN button with parameter “v2” and use the View VLANs button to verify that “v2” was correctly removed and all of its hosts have been moved to the default VLAN
