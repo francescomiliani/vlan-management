@@ -1,0 +1,5 @@
+sudo mn --topo single,6 --mac --switch ovsk --controller remote,ip=127.0.0.1,port=6653,potocols=OpenFlow13 --ipbase=10.0.0.0
+
+h1 route add -net 0.0.0.0/32 dev h1-eth0
+
+h1 echo "0" > /proc/sys/net/ipv4/icmp_echo_ignore_broadcasts
